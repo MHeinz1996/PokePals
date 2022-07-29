@@ -50,7 +50,7 @@ A [tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi)-like game where you can
 
 ### CRUD:
 - CREATE
-  - User selects a Pokémon to take care of
+  - User adopts a Pokémon to take care of
 - READ
   - When user logs in, frontend will get Pokémon's data from backend and set appropriate states in the frontend
 - UPDATE
