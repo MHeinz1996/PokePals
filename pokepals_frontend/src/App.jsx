@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import './App.css'
+import {HashRouter as Router, Routes, Route} from 'react-router-dom'
+import HomePage from './pages/HomePage'
 
 function getCookie(name) {
   let cookieValue = null;
@@ -17,14 +19,22 @@ function getCookie(name) {
   }
   return cookieValue;
 }
+
 const csrftoken = getCookie('csrftoken');
+axios.defaults.headers.common['X-CSRFToken'] = csrftoken
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState(null)
 
   return (
     <div className="App">
       <h1>PokéPals</h1>
+      <Router>
+        <Routes>
+          <Route path='/' element={<HomePage user={user} setUser={setUser}/>} />
+        </Routes>
+      </Router>
+      {/* {!user && <SignUp setUser={setUser} />} */}
     </div>
   )
 }
