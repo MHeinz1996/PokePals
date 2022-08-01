@@ -1,6 +1,6 @@
 # Personal Project
 
-## Requirements
+## [Requirements](https://docs.google.com/spreadsheets/d/13ORPURoJ_l57XPTRVydIpFdSs68ZoSeOJ_92LfeySoA/edit#gid=0)
 - Django Backend
   - 2 external APIs
 - PostgreSQL DB
