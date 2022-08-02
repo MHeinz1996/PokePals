@@ -18,8 +18,8 @@ function HomePage({user, setUser}) {
       {/* {!user && <Login user={user} setUser={setUser} />} */}
       {
         account
-        ? <Login user={user} account={account} setAccount={setAccount} />
-        : <SignUp setUser={setUser} account={account} setAccount={setAccount} />
+        ? <Login user={user} setUser={setUser} account={account} setAccount={setAccount} />
+        : <SignUp account={account} setAccount={setAccount} />
       }
       <br />
       <input type="button" onClick={logOut} value="Log Out" />

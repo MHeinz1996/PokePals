@@ -23,6 +23,7 @@ A [tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi)-like game where you can
       - the player needs to guess if the next number will be higher or lower than the previous number
       - if they get the answer correct, happiness increases by 1
       - if they get the answer wrong, happiness decreases by 1
+      - maybe in a future release, change game to be "Who's that Pokemon?!"
   - Feed Pokémon when it is hungry
     - every hour not fed, hunger level decreases by 1
     - every hour that hunger == 0, happiness decreses by 2

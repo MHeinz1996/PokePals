@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-function SignUp({setUser, account, setAccount}) {
+function SignUp({account, setAccount}) {
   
   const handleSubmit = (event) => {
     event.preventDefault()

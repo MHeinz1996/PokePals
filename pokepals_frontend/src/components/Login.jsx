@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-function Login({user, account, setAccount}) {
+function Login({user, setUser, account, setAccount}) {
   
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -9,6 +9,10 @@ function Login({user, account, setAccount}) {
     
     axios.post('/login', {email: email, password: password}).then((response) => {
       console.log(response.data)
+      setUser(email)
+      if(response.data.success === true) {
+        window.location.href = '/#/play'
+      }
     })
   }
 
