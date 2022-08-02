@@ -7,5 +7,6 @@ urlpatterns = [
   path('login', views.log_in, name="login"),
   path('logout', views.log_out, name="logout"),
   path('whoami', views.who_am_i, name="whoami"),
-  path('pokemon', views.pokemon, name="pokemon")
+  path('pokemon', views.pokemon, name="pokemon"),
+  path('pokemon/<int:id>/<int:trainer_id>', views.pokemon_id, name="pokemon_id"),
 ]
