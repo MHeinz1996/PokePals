@@ -38,6 +38,9 @@ curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0C
 <p>&nbsp;</p>
 
 ** Test this first **
+** Unsure if response will be returned as a file or as binary **
+** Might need to ask Instructors for help **
+
 <p>&nbsp;</p>
 
 python:
