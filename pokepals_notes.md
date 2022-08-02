@@ -10,8 +10,6 @@
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
 
 # To get pokemon cries, use this syntax:
 curl:
