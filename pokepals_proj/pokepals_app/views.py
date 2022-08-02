@@ -1,3 +1,4 @@
+from django.forms.models import model_to_dict
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
@@ -59,3 +60,15 @@ def who_am_i(request):
     return HttpResponse(data)
   else:
     return JsonResponse({'user': None})
+
+
+@api_view(['GET'])
+def get_pokemon(request):
+  print(request.user)
+  trainer = Trainer.objects.all().get(email = request.user)
+  try:
+    pokemon = Pokemon.objects.all().get(trainer_id = trainer.id)
+  except Exception as e:
+    return JsonResponse({'success': False, 'error': 'Trainer has not adopted a pokemon'})
+  print(model_to_dict(pokemon))
+  return HttpResponse('test')
