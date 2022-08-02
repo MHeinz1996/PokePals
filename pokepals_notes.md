@@ -18,9 +18,13 @@ curl:
 ```bash
 curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o /home/michael/VSCode/Code_Platoon/Personal_Project/pokepals_proj/static/cries/pokemon_{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}
 ```
+<p>&nbsp;</p>
+
+** Test this first **
 python:
 ```python
 import requests
+# when implemented, Bearer token will be in .env file
 
 def get_cry(id):
   headers = {
@@ -28,7 +32,7 @@ def get_cry(id):
       'Accept': 'audio/wav',
   }
 
-  response = requests.get('https://api.pkmnapi.com/v1/pokemon/cries/{id}', headers=headers)
+  response = requests.get(f'https://api.pkmnapi.com/v1/pokemon/cries/{id}', headers=headers)
   return response
 
 # add cry to pokemon database obj
@@ -36,7 +40,6 @@ pokemon = Pokemon(...)
 pokemon.cry = get_cry(id)
 ```
 
-** Test this first **
 
 Django Model:
 ```python
