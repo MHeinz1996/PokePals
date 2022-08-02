@@ -11,7 +11,7 @@ function Login({user, setUser, account, setAccount}) {
       console.log(response.data)
       setUser(email)
       if(response.data.success === true) {
-        window.location.href = '/#/play'
+        window.location.href = '/#/game'
       }
     })
   }

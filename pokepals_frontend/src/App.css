@@ -39,3 +39,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.scrollable {
+  max-height: 300px;
+  overflow: auto;
+}

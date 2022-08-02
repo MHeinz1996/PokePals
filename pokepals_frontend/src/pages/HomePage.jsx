@@ -15,7 +15,7 @@ function HomePage({user, setUser}) {
 
   return(
     <div>
-      {/* {!user && <Login user={user} setUser={setUser} />} */}
+      <h1>PokéPals</h1>
       {
         account
         ? <Login user={user} setUser={setUser} account={account} setAccount={setAccount} />

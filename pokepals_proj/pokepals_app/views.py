@@ -63,7 +63,7 @@ def who_am_i(request):
 
 
 @api_view(['GET'])
-def get_pokemon(request):
+def pokemon(request):
   print(request.user)
   trainer = Trainer.objects.all().get(email = request.user)
   try:

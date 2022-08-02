@@ -11,10 +11,10 @@
 ## Login In
 - user can enter an email and password to log in
 - will have to perform some kind of try/catch handling if the user logged in successfully
-- if logged in successfully, route to '/#/play'
+- if logged in successfully, route to '/#/game'
 
 ## Play
-- When routed to '/#/play', frontend will query backend to see if user has a pokemon yet
+- When routed to '/#/game', frontend will query backend to see if user has a pokemon yet
 - if user does not have a pokemon, user will be served an adoption page that allows them to select a pokemon from the origial 151 to adopt
   - When a pokemon is selected, frontend will send the selection to the backend, and the backend will query the appropriate APIs to gather that pokemon's data
   - a Pokemon Object will then be created for that user and stored in the database

@@ -9,7 +9,7 @@ function Game({user}) {
   useEffect(() => {}, [])
   
   const test = () => {
-    axios.get('/get_pokemon', {'user': user}).then((response) => {
+    axios.get('/pokemon', {'user': user}).then((response) => {
       console.log(response)
       if(response.data.success === false) {
         window.location.href = '/#/adopt'
@@ -20,7 +20,7 @@ function Game({user}) {
   return (
     <div>
       <h1>Welcome, {user}</h1>
-      <button onClick={test}>Get Pokemon</button>
+      <button onClick={test}>Play</button>
     </div>
   )
 }
