@@ -5,7 +5,7 @@ from django.core import serializers
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
 from .models import Trainer, Pokemon
-import requests, json, datetime
+import requests, json, datetime, os, subprocess
 
 def index(request):
   index = open('static/index.html').read()
@@ -92,22 +92,26 @@ def pokemon_id(request, id, trainer_id):
     print(f"pokemon id = {id}")
     print(f"trainer id = {trainer_id}")
 
-    # try:
-    #   pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, last_fed=datetime.now(), trainer_id=trainer_id)
-    #   print(model_to_dict(pokemon))
-    #   def get_cry(id):
-    #     headers = {
-    #         'Authorization': 'Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk',
-    #         'Accept': 'audio/wav',
-    #     }
-    #     response = requests.get(f'https://api.pkmnapi.com/v1/pokemon/cries/{id}', headers=headers)
-    #     return response
+    headers = {
+      'Authorization': 'Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk',
+      'Accept': 'audio/wav',
+    }
+    # For some reason, 'with open' doesn't want to create this file since it doesn't exist. It says it can't find it
+    # response = requests.get(f'https://api.pkmnapi.com/v1/pokemon/cries/{id}', headers=headers)
+    # with open(f'/static/cries/pokemon{id}.wav', 'wb+') as f:
+        # f.write(response.content)
+        
+    path = subprocess.check_output(['pwd'])
+    # os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/static/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
+    
+    print(path) # prints as b'/home/michael/VSCode/Code_Platoon/Personal_Project/pokepals_proj\n'
 
-    #   pokemon.cry = get_cry(id)
-
-    #   pokemon.full_clean()
-    #   pokemon.save()
-    # except Exception as e:
-    #   return JsonResponse({'success': False, 'error': 'Could not create pokemon'})
+    try:
+      pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'/static/cries/pokemon{id}.wav', trainer_id=trainer_id)
+      print(model_to_dict(pokemon))
+      pokemon.full_clean()
+      pokemon.save()
+    except Exception as e:
+      return JsonResponse({'success': False, 'error': 'Could not create pokemon'})
     
     return JsonResponse({'success': True})
