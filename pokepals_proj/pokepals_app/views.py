@@ -9,7 +9,6 @@ import requests, json, datetime, os, subprocess
 
 path = subprocess.check_output(['pwd']).decode("utf-8").strip() # Runs pwd from terminal, converts from binary to string, then strips newline chars
 
-
 def index(request):
   index = open('static/index.html').read()
   return HttpResponse(index)
@@ -30,9 +29,9 @@ def log_in(request):
     email = request.data['email']
     password = request.data['password']
     user = authenticate(username=email, password=password)
-    print('user?')
-    print(user.email)
-    print(user.password)
+    # print('user?')
+    # print(user.email)
+    # print(user.password)
     if user is not None:
       if user.is_active:
         try:
@@ -90,23 +89,19 @@ def pokemon_id(request, id, trainer_id):
     data = response.json()
     name = data['name']
     sprite = data['sprites']['front_default']
-    print(f"name = {name}")
-    print(f"sprite url = {sprite}")
-    print(f"pokemon id = {id}")
-    print(f"trainer id = {trainer_id}")
+    # print(f"name = {name}")
+    # print(f"sprite url = {sprite}")
+    # print(f"pokemon id = {id}")
+    # print(f"trainer id = {trainer_id}")
 
     headers = {
       'Authorization': 'Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk',
       'Accept': 'audio/wav',
     }
-    # For some reason, 'with open' doesn't want to create this file since it doesn't exist. It says it can't find it
-    # response = requests.get(f'https://api.pkmnapi.com/v1/pokemon/cries/{id}', headers=headers)
-    # with open(f'/static/cries/pokemon{id}.wav', 'wb+') as f:
-        # f.write(response.content)
         
     os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/static/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
     
-    print(path + f"/static/cries/pokemon{id}.wav") # prints as b'/home/michael/VSCode/Code_Platoon/Personal_Project/pokepals_proj\n'
+    # print(path + f"/static/cries/pokemon{id}.wav")  prints as b'/home/michael/VSCode/Code_Platoon/Personal_Project/pokepals_proj\n'
 
     try:
       pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'/static/cries/pokemon{id}.wav', trainer_id=trainer_id)

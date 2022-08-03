@@ -4,7 +4,6 @@ import getCookie from '../components/GetCookie'
 
 function Adopt({user}) {
 
-  const [pokemon, setPokemon] = useState(null)
   const [pokemonList, setPokemonList] = useState([])
   
   useEffect(() => {
@@ -24,6 +23,7 @@ function Adopt({user}) {
   const handleClick = (id) => {
     axios.post(`/pokemon/${id}/${user.id}`).then((response) => {
       console.log(response.data)
+      window.location.href = '/#/game'
     })
   }
 
