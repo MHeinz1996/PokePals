@@ -82,8 +82,11 @@ def pokemon(request):
     
   return HttpResponse('test')
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def pokemon_id(request, id, trainer_id):
+  if request.method == 'GET':
+    return JsonResponse({'path': path})
+
   if request.method == 'POST':
     response = requests.get(f'https://pokeapi.co/api/v2/pokemon/{id}')
     data = response.json()
@@ -99,12 +102,10 @@ def pokemon_id(request, id, trainer_id):
       'Accept': 'audio/wav',
     }
         
-    os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/static/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
+    os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/media/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
     
-    # print(path + f"/static/cries/pokemon{id}.wav")  prints as b'/home/michael/VSCode/Code_Platoon/Personal_Project/pokepals_proj\n'
-
     try:
-      pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'/static/cries/pokemon{id}.wav', trainer_id=trainer_id)
+      pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'/media/cries/pokemon{id}.wav', trainer_id=trainer_id)
       print(model_to_dict(pokemon))
       pokemon.full_clean()
       pokemon.save()

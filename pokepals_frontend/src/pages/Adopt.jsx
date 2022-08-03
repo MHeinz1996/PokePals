@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {useState, useEffect} from 'react'
 import getCookie from '../components/GetCookie'
+import Game from './Game'
 
 function Adopt({user}) {
 

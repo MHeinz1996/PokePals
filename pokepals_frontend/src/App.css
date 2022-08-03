@@ -44,3 +44,8 @@
   max-height: 300px;
   overflow: auto;
 }
+
+#sprite {
+  height: 200%;
+  width: 200%;
+}
