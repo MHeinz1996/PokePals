@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {useState, useEffect} from 'react'
+import getCookie from '../components/GetCookie'
 
 function Adopt({user}) {
 
@@ -7,15 +8,24 @@ function Adopt({user}) {
   const [pokemonList, setPokemonList] = useState([])
   
   useEffect(() => {
+    const csrftoken = getCookie('csrftoken');
+    axios.defaults.headers.common['X-CSRFToken'] = csrftoken
+    
     let pokemon_list = []
     axios.get('https://pokeapi.co/api/v2/pokemon?limit=151').then((response) => {
       for(let i=0; i<response.data.results.length; i++) {
         let name = response.data.results[i].name
-        pokemon_list.push(<li key={i+1}><a className='dropdown-item' href='/#/adopt'>{name}</a></li>)  
+        pokemon_list.push(<li key={i+1}><a className='dropdown-item' onClick={() => {handleClick(i+1)}}>{name}</a></li>)  
       }
       setPokemonList(pokemon_list)
     })
   }, [])
+  
+  const handleClick = (id) => {
+    axios.post(`/pokemon/${id}/${user.id}`).then((response) => {
+      console.log(response.data)
+    })
+  }
 
   return (
     <div>

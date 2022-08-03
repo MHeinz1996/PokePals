@@ -13,13 +13,15 @@ function Game({user}) {
       console.log(response)
       if(response.data.success === false) {
         window.location.href = '/#/adopt'
+      } else {
+        console.log(response)
       }
     })
   }
 
   return (
     <div>
-      <h1>Welcome, {user}</h1>
+      <h1>Welcome, {user.email}</h1>
       <button onClick={test}>Play</button>
     </div>
   )

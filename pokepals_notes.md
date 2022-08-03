@@ -45,19 +45,17 @@ python:
 ```python
 import requests
 # when implemented, Bearer token will be in .env file
-
-def get_cry(id):
-  headers = {
-      'Authorization': 'Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk',
-      'Accept': 'audio/wav',
-  }
-
-  response = requests.get(f'https://api.pkmnapi.com/v1/pokemon/cries/{id}', headers=headers)
-  return response
+headers = {
+  'Authorization': 'Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk',
+  'Accept': 'audio/wav',
+}
+response = requests.get(f'https://api.pkmnapi.com/v1/pokemon/cries/{id}', headers=headers)
+with open(f'../media/cries/pokemon_{id}.wav', 'wb') as f:
+    f.write(response.content)
 
 # add cry to pokemon database obj
 pokemon = Pokemon(...)
-pokemon.cry = get_cry(id)
+pokemon.cry = f'../media/cries/pokemon_{id}.wav'
 ```
 
 

@@ -42,11 +42,11 @@ A [tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi)-like game where you can
   - used to display that specific user's Pokémon
 - Pokemon
   - species (ex. Pikachu. Pulled from pokeapi)
-  - nickname (optional)
   - happiness (int from 0-10 to represent stars. ex. happiness:9 == 4.5-stars == very happy)
   - hunger (int from 0-10 to represent stars. ex. hunger:0 == 0-stars == starving)
   - last_fed (datetime to be used to calculate hunger)
   - cry (sound that the pokemon makes. Pulled from pkmnapi)
+  - sprite (url of pokemon image)
   - trainer (foreignkey AppUser)
 
 ### CRUD:
