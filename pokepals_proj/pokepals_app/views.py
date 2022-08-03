@@ -7,6 +7,9 @@ from rest_framework.decorators import api_view
 from .models import Trainer, Pokemon
 import requests, json, datetime, os, subprocess
 
+path = subprocess.check_output(['pwd']).decode("utf-8").strip() # Runs pwd from terminal, converts from binary to string, then strips newline chars
+
+
 def index(request):
   index = open('static/index.html').read()
   return HttpResponse(index)
@@ -101,10 +104,9 @@ def pokemon_id(request, id, trainer_id):
     # with open(f'/static/cries/pokemon{id}.wav', 'wb+') as f:
         # f.write(response.content)
         
-    path = subprocess.check_output(['pwd'])
-    # os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/static/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
+    os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/static/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
     
-    print(path) # prints as b'/home/michael/VSCode/Code_Platoon/Personal_Project/pokepals_proj\n'
+    print(path + f"/static/cries/pokemon{id}.wav") # prints as b'/home/michael/VSCode/Code_Platoon/Personal_Project/pokepals_proj\n'
 
     try:
       pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'/static/cries/pokemon{id}.wav', trainer_id=trainer_id)
@@ -112,6 +114,6 @@ def pokemon_id(request, id, trainer_id):
       pokemon.full_clean()
       pokemon.save()
     except Exception as e:
-      return JsonResponse({'success': False, 'error': 'Could not create pokemon'})
+      return JsonResponse({'success': False, 'error': 'Trainer already has a pokemon'})
     
     return JsonResponse({'success': True})
