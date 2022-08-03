@@ -6,6 +6,7 @@ import StarRatings from 'react-star-ratings'
 function MyVerticallyCenteredModal(props) {
   let happiness = props.happiness
   let hunger = props.hunger
+  let pokemon = props.pokemon
 
   return (
     <Modal
@@ -16,7 +17,7 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Pokemon Status
+          {pokemon.charAt(0).toUpperCase() + pokemon.slice(1)}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

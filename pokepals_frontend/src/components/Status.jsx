@@ -11,7 +11,7 @@ function Status({pokemon}) {
   return (
     <div>
       <button onClick={() => setModal(true)}>Status</button>
-      <MyVerticallyCenteredModal happiness={happiness} hunger={hunger} show={modal} onHide={() => setModal(false)} /> 
+      <MyVerticallyCenteredModal pokemon={pokemon.species} happiness={happiness} hunger={hunger} show={modal} onHide={() => setModal(false)} /> 
     </div>
   )
 }

@@ -53,6 +53,7 @@ def log_in(request):
 
 @api_view(['POST'])
 def log_out(request):
+  # add code to accept game info as params, and update database with that data
   logout(request)
   return JsonResponse({'success':True})
 

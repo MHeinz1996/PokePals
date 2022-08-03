@@ -23,14 +23,9 @@ function Play({user, pokemon, setPokemon}) {
     cry.play()
   }
 
-  // same error as Wad
-  // const cryAudio = () => {
-  //   const cry = new Audio(`../../../pokepals_proj${pokemon.cry}`)
-  //   cry.play()
-  // }
-  
-  const logOut = (event) => {
+  const quit = (event) => {
     event.preventDefault()
+    // add params to send game info to back end for saving
     axios.post('/logout').then((response) => {
       console.log(response.data)
       window.location.href = '/'
@@ -42,7 +37,7 @@ function Play({user, pokemon, setPokemon}) {
       <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
       <Status pokemon={pokemon} />
       <br/>
-      <button onClick={logOut}>Log Out</button>
+      <button onClick={quit}>Quit</button>
       <br/>
     </div>
   )
@@ -55,7 +50,7 @@ Components needed:
 - Quit button -> Saves game data to database, logout user, then redirect to login page
 - Status button -> Displays Pokemon's Happiness and Hunger levels
 - Game button -> Lets user play a game with their Pokemon
-- Feed button -> Feeds pokemon and resets their `last_fed` database info
+- Feed button -> Feeds pokemon and resets their `last_fed` database info, if pokemon has more than 3 stars in hunger, don't let user feed pokemon
 
 Game(play with pokemon) logic needed:
 - Have game set and interval to check when the pokemon was fed last
