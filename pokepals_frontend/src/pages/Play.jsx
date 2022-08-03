@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import getCookie from '../components/GetCookie'
 import Wad from 'web-audio-daw'
+import Status from '../components/Status'
 
 function Play({user, pokemon, setPokemon}) {
   let path = ''
@@ -31,6 +32,7 @@ function Play({user, pokemon, setPokemon}) {
   return (
     <div>
       <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
+      <Status pokemon={pokemon} />
     </div>
   )
 }
