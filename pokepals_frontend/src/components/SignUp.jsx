@@ -22,21 +22,24 @@ function SignUp({account, setAccount}) {
   return(
     <div className="SignUp">
       <h3>Sign Up</h3>
+      <br />
       <form onSubmit={handleSubmit}>
       <label>
           Email:
           <input type="email" id="email" />
         </label>
         <br />
+        <br />
         <label>
           Password:
           <input type="password" id="password" />
         </label>
         <br />
-        <input type="submit" value="Submit" />
+        <br />
+        <button type="submit">Submit</button>
+        <span> </span>
+        <button onClick={handleClick}>Log In</button>
       </form>
-      <br />
-      <a onClick={handleClick}>Log In</a>
     </div>
   )
 }

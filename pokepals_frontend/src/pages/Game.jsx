@@ -15,18 +15,14 @@ function Game({user, pokemon, setPokemon}) {
       } else {
         // console.log(response)
         setPokemon(response.data)
+        window.location.href = '/#/play'
       }
     })
   }, [])
 
-  const play = () => {
-    window.location.href = '/#/play'
-  }
-
   return (
     <div>
-      <h1>Welcome, {user.email}</h1>
-      <button onClick={play}>Play</button>
+      {/* <h1>Welcome, {user.email}</h1> */}
     </div>
   )
 }

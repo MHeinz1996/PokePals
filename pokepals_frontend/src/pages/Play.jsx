@@ -28,11 +28,22 @@ function Play({user, pokemon, setPokemon}) {
   //   const cry = new Audio(`../../../pokepals_proj${pokemon.cry}`)
   //   cry.play()
   // }
+  
+  const logOut = (event) => {
+    event.preventDefault()
+    axios.post('/logout').then((response) => {
+      console.log(response.data)
+      window.location.href = '/'
+    })
+  }
 
   return (
     <div>
       <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
       <Status pokemon={pokemon} />
+      <br/>
+      <button onClick={logOut}>Log Out</button>
+      <br/>
     </div>
   )
 }

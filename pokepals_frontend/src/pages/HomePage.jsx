@@ -6,13 +6,6 @@ import axios from 'axios';
 function HomePage({user, setUser}) {
   const [account, setAccount] = useState(true)
 
-  const logOut = (event) => {
-    event.preventDefault()
-    axios.post('/logout').then((response) => {
-      console.log(response.data)
-    })
-  }
-
   return(
     <div>
       <h1>PokéPals</h1>
@@ -21,8 +14,6 @@ function HomePage({user, setUser}) {
         ? <Login user={user} setUser={setUser} account={account} setAccount={setAccount} />
         : <SignUp account={account} setAccount={setAccount} />
       }
-      <br />
-      <input type="button" onClick={logOut} value="Log Out" />
     </div>
   )
 }
