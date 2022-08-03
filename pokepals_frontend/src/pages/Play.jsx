@@ -15,16 +15,16 @@ function Play({user, pokemon, setPokemon}) {
     })
   }, [])
   
-  // wad.js:19974 GET http://localhost:8000/home/michael/VSCode/Code_Platoon/Personal_Project/PokePals/pokepals_proj/media/cries/pokemon7.wav 404 (Not Found)
-  // I understand wad is a web player, but is there any way to set the source as a local file in my project?
+  // GET http://localhost:8000/pokepals_proj/media/cries/pokemon7.wav 404 (Not Found)
+  // is there any way to set the source as a file located in my project?
   const cryAudio = () => {
-    let cry = new Wad({source: `${path}${pokemon.cry}`})
+    let cry = new Wad({source: `../../../pokepals_proj${pokemon.cry}`})
     cry.play()
   }
 
   // same error as Wad
   // const cryAudio = () => {
-  //   const cry = new Audio(`${path}${pokemon.cry}`)
+  //   const cry = new Audio(`../../../pokepals_proj${pokemon.cry}`)
   //   cry.play()
   // }
 
@@ -36,3 +36,21 @@ function Play({user, pokemon, setPokemon}) {
 }
 
 export default Play
+
+/* Notes
+Components needed:
+- Quit button -> Saves game data to database, logout user, then redirect to login page
+- Status button -> Displays Pokemon's Happiness and Hunger levels
+- Game button -> Lets user play a game with their Pokemon
+- Feed button -> Feeds pokemon and resets their `last_fed` database info
+
+Game(play with pokemon) logic needed:
+- Have game set and interval to check when the pokemon was fed last
+  - For every hour not fed, reduce its hunger level by 1
+  - if hunger level is at 0, instead, reduce happiness level by 2
+- Game button logic
+  - Display a number from 1-9 on the screen. User can guess if the next number will be higher or lower than the first number
+  - if user gets the question correct, pokemon gains 1 point in happiness
+  - if user gets the question wrong, pokemon loses 1 point in happiness
+  - if time allows at all, maybe switch game to "Who's that pokemon?!"
+ */
