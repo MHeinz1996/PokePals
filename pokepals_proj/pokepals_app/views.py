@@ -106,7 +106,7 @@ def pokemon_id(request, id, trainer_id):
     os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/media/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
     
     try:
-      pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'/media/cries/pokemon{id}.wav', trainer_id=trainer_id)
+      pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'media/cries/pokemon{id}.wav', trainer_id=trainer_id)
       print(model_to_dict(pokemon))
       pokemon.full_clean()
       pokemon.save()

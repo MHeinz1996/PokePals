@@ -12,14 +12,14 @@ function Play({user, pokemon, setPokemon}) {
 
     axios.get(`/pokemon/${pokemon.id}/${pokemon.trainer}`).then((response) => {
       path = response.data.path
-      console.log(`${path}${pokemon.cry}`)
+      // console.log(`${path}${pokemon.cry}`)
     })
   }, [])
   
   // GET http://localhost:8000/pokepals_proj/media/cries/pokemon7.wav 404 (Not Found)
   // is there any way to set the source as a file located in my project?
   const cryAudio = () => {
-    let cry = new Wad({source: `../../../pokepals_proj${pokemon.cry}`})
+    let cry = new Wad({source: `${pokemon.cry}`})
     cry.play()
   }
 
@@ -35,10 +35,16 @@ function Play({user, pokemon, setPokemon}) {
   return (
     <div>
       <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
-      <Status pokemon={pokemon} />
-      <br/>
-      <button onClick={quit}>Quit</button>
-      <br/>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-sm-2">
+            <Status pokemon={pokemon} />
+          </div>
+          <div className="col-sm-2">
+            <button onClick={quit}>Quit</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
