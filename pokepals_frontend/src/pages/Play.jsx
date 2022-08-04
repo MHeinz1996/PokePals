@@ -28,12 +28,6 @@ function Play({user, pokemon, setPokemon}) {
 
   const quit = (event) => {
     event.preventDefault()
-    
-    axios.put(`/pokemon/${pokemon.id}/save_game`, {'hunger': hungerState, 'happiness': happinessState}).then((response) => {
-      // sends current game settings to the backend for saving
-      setPokemon(response.data)
-    })
-
     axios.post('/logout').then((response) => {
       window.location.href = '/'
     })
@@ -72,8 +66,28 @@ function Play({user, pokemon, setPokemon}) {
 
   return (
     <div>
-      <h3>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</h3>
-      <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
+      <h2>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</h2>
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-sm-2">
+            <h5>PokéPals!</h5>
+            <br/>
+            <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway!</p>
+          </div>
+          <div className="col-sm-1">
+            <h1 id='first-num'></h1>
+          </div>
+          <div className="col-sm-5">
+            <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
+          </div>
+          <div className="col-sm-1">
+            <h1 id='second-num'></h1>
+          </div>
+          <div className="col-sm-2">
+            <p>Instructions for 'Play': A number will appear on the left. You have to guess if the next number that appears on the right will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
+          </div>
+        </div>
+      </div>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-sm-2 game-button">
