@@ -23,7 +23,7 @@ function MyVerticallyCenteredModal(props) {
       <Modal.Body>
         <h4>Happiness</h4>
         <StarRatings rating={+happiness/2} starRatedColor="gold" numberOfStars={5} name="happiness"/>
-        <h4>Hunger</h4>
+        <h4>Belly</h4>
         <StarRatings rating={+hunger/2} starRatedColor="gold" numberOfStars={5} name="hunger"/>
       </Modal.Body>
       <Modal.Footer>

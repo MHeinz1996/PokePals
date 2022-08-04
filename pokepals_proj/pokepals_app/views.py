@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework.decorators import api_view
 from .models import Trainer, Pokemon
 import requests, json, datetime, os, subprocess
+from django.utils import timezone
 
 path = subprocess.check_output(['pwd']).decode("utf-8").strip() # Runs pwd from terminal, converts from binary to string, then strips newline chars
 
@@ -83,11 +84,8 @@ def pokemon(request):
     
   return HttpResponse('test')
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def pokemon_id(request, id, trainer_id):
-  if request.method == 'GET':
-    return JsonResponse({'path': path})
-
   if request.method == 'POST':
     response = requests.get(f'https://pokeapi.co/api/v2/pokemon/{id}')
     data = response.json()
@@ -114,3 +112,17 @@ def pokemon_id(request, id, trainer_id):
       return JsonResponse({'success': False, 'error': 'Trainer already has a pokemon'})
     
     return JsonResponse({'success': True})
+
+@api_view(['PUT'])
+def last_fed(request, id):
+  if request.method == 'PUT':
+    pokemon = Pokemon.objects.all().get(id=id)
+    pokemon.last_fed = timezone.now()
+    if pokemon.hunger + 4 > 10:
+      pokemon.hunger = 10
+    else:
+      pokemon.hunger+=4
+    pokemon.full_clean()
+    pokemon.save()
+    return JsonResponse({'hunger': pokemon.hunger, 'last_fed': pokemon.last_fed})
+  return JsonResponse({'last_fed': 'last_fed view'})

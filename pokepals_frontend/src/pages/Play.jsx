@@ -3,21 +3,29 @@ import axios from 'axios'
 import getCookie from '../components/GetCookie'
 import Wad from 'web-audio-daw'
 import Status from '../components/Status'
+import Feed from '../components/Feed'
 
 function Play({user, pokemon, setPokemon}) {
-  let path = ''
+  const [happiness, setHappiness] = useState(pokemon.happiness)
+  const [hunger, setHunger] = useState(pokemon.hunger)
+  const [last_fed, setLast_Fed] = useState(pokemon.last_fed)
+  const [firstRender, setFirstRender] = useState(true)
+
+  useEffect(() => {
+    if(!firstRender) {
+      console.log("hunger updated")
+      setTimeout(1500)
+      window.location.href = '/#/game'
+    }
+  }, [hunger])
+  
   useEffect(() => {
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
-
-    axios.get(`/pokemon/${pokemon.id}/${pokemon.trainer}`).then((response) => {
-      path = response.data.path
-      // console.log(`${path}${pokemon.cry}`)
-    })
+    setFirstRender(false)
+    console.log(pokemon)
   }, [])
   
-  // GET http://localhost:8000/pokepals_proj/media/cries/pokemon7.wav 404 (Not Found)
-  // is there any way to set the source as a file located in my project?
   const cryAudio = () => {
     let cry = new Wad({source: `${pokemon.cry}`})
     cry.play()
@@ -41,8 +49,11 @@ function Play({user, pokemon, setPokemon}) {
             <Status pokemon={pokemon} />
           </div>
           <div className="col-sm-2">
-            <button onClick={quit}>Quit</button>
+            <Feed pokemon={pokemon} setHunger={setHunger} setLast_Fed={setLast_Fed} />
           </div>
+          <div className="col-sm-2">
+            <button onClick={quit}>Quit</button>
+          </div>    
         </div>
       </div>
     </div>
