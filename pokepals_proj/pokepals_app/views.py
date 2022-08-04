@@ -51,7 +51,6 @@ def log_in(request):
         return JsonResponse({'success': False, 'error': 'no user'})
         # Return an 'invalid login' error message.
 
-
 @api_view(['POST'])
 def log_out(request):
   # add code to accept game info as params, and update database with that data
@@ -69,9 +68,9 @@ def who_am_i(request):
   else:
     return JsonResponse({'user': None})
 
-
 @api_view(['GET'])
 def pokemon(request):
+  # Checks if the user has a pokemon associated with their account or not
   if request.method == 'GET':
     print(request.user)
     trainer = Trainer.objects.all().get(email = request.user)
@@ -81,43 +80,35 @@ def pokemon(request):
     except Exception as e:
       return JsonResponse({'success': False, 'error': 'Trainer has not adopted a pokemon'})
 
-    
-  return HttpResponse('test')
-
 @api_view(['POST'])
 def pokemon_id(request, id, trainer_id):
   if request.method == 'POST':
+    # Calls pokeapi
     response = requests.get(f'https://pokeapi.co/api/v2/pokemon/{id}')
     data = response.json()
     name = data['name']
     sprite = data['sprites']['front_default']
-    # print(f"name = {name}")
-    # print(f"sprite url = {sprite}")
-    # print(f"pokemon id = {id}")
-    # print(f"trainer id = {trainer_id}")
-
-    headers = {
-      'Authorization': 'Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk',
-      'Accept': 'audio/wav',
-    }
-        
+    
+    # Calls pkmnapi using a shell command because I couldn't figure out how to do it using python requests module
     os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/media/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
     
     try:
+      # uses info from both APIs to create a pokemon in the database for that user
+      # note that the 'cry' col isn't uploading a file, rather a path to where the API call saves the file
       pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'media/cries/pokemon{id}.wav', trainer_id=trainer_id)
-      print(model_to_dict(pokemon))
       pokemon.full_clean()
       pokemon.save()
     except Exception as e:
       return JsonResponse({'success': False, 'error': 'Trainer already has a pokemon'})
-    
     return JsonResponse({'success': True})
 
 @api_view(['GET', 'PUT'])
 def last_fed(request, id):
+  # get pokemon from database
   pokemon = Pokemon.objects.all().get(id=id)
   
   if request.method == 'GET':
+    # return how long it has been (in hours) since the pokemon was last fed
     now = timezone.now()
     time_diff = now - pokemon.last_fed
     time_diff_seconds = time_diff.total_seconds()
@@ -126,6 +117,7 @@ def last_fed(request, id):
     return JsonResponse({'time_diff': str(time_diff)})
 
   if request.method == 'PUT':
+    # when pokemon is fed, update their respective columns in the databse
     pokemon.last_fed = timezone.now()
     if pokemon.hunger + 4 > 10:
       pokemon.hunger = 10
@@ -137,6 +129,7 @@ def last_fed(request, id):
 
 @api_view(['PUT'])
 def save_game(request, id):
+  # when game is saved, updates the database with latest data
   pokemon = Pokemon.objects.all().get(id=id)
   body = json.loads(request.body)
   hunger = body['hunger']
