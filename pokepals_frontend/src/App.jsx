@@ -20,6 +20,7 @@ axios.defaults.headers.common['X-CSRFToken'] = csrftoken
 function App() {
   const [user, setUser] = useState(null)
   const [pokemon, setPokemon] = useState(null)
+  
 
   return (
     <div className="App">

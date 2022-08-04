@@ -12,7 +12,7 @@ function Feed({pokemon,  setPokemon}) {
         setPokemon(response.data)
         alert(`${pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)} was fed!`)
       })
-      window.location.href = '/#/game'
+      window.location.href = '/#/play'
     }
   }
 
