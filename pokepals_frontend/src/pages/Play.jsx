@@ -20,6 +20,7 @@ function Play({user, pokemon, setPokemon}) {
   }, [])
   
   const cryAudio = () => {
+    // Uses Raphael's NPM module to play the pokemon's cry when clicked
     let cry = new Wad({source: `${pokemon.cry}`})
     cry.play()
   }
@@ -28,6 +29,7 @@ function Play({user, pokemon, setPokemon}) {
     event.preventDefault()
     
     axios.put(`/pokemon/${pokemon.id}/save_game`, {'hunger': hungerState, 'happiness': happinessState}).then((response) => {
+      // sends current game settings to the backend for saving
       setPokemon(response.data)
     })
 
@@ -38,10 +40,11 @@ function Play({user, pokemon, setPokemon}) {
   
   const checkLastFed = () => {
     axios.get(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
-      // response is difference in hours since the last time pokemon was fed
+      // response is time difference (in hours) since the last time pokemon was fed
       let hours_since_fed = +response.data.time_diff
       console.log(`Hours since fed last: ${hours_since_fed}`)
       if(hours_since_fed > 0) {
+        // set temp vars to database's values
         let temp_hunger = hunger
         let temp_happiness = happiness
         for(let i=0; i<hours_since_fed; i++) {
@@ -53,13 +56,18 @@ function Play({user, pokemon, setPokemon}) {
             temp_hunger--
           }
         }
+
+        // set the states so I can manipulate frontend components
+        // without messing with the database
         setHappinessState(temp_happiness)
         setHungerState(temp_hunger)
       }
     })
   }
 
-  setInterval(checkLastFed, 10000) // change interval to 60000 when I get everything working
+  // Check to see when the pokemon was fed last
+  // then set the hunger and happiness level of the pokemon accordingly
+  setInterval(checkLastFed, 10000)
 
   return (
     <div>
