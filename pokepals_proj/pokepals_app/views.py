@@ -133,8 +133,7 @@ def last_fed(request, id):
       pokemon.hunger+=4
     pokemon.full_clean()
     pokemon.save()
-    return JsonResponse({'hunger': pokemon.hunger, 'last_fed': pokemon.last_fed})
-  return JsonResponse({'last_fed': 'last_fed view'})
+    return JsonResponse(model_to_dict(pokemon))
 
 @api_view(['PUT'])
 def save_game(request, id):
@@ -146,5 +145,5 @@ def save_game(request, id):
   pokemon.happiness = happiness
   pokemon.full_clean()
   pokemon.save()
-  return JsonResponse({'saved': 'Game saved', 'hunger': pokemon.hunger, 'happiness': pokemon.happiness})
+  return JsonResponse(model_to_dict(pokemon))
   

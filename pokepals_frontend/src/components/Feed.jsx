@@ -1,6 +1,6 @@
 import axios from "axios"
 
-function Feed({pokemon,  setHunger, setLast_Fed}) {
+function Feed({pokemon,  setPokemon}) {
   
   const feedPokemon = () => {
     let hunger = pokemon.hunger
@@ -8,11 +8,11 @@ function Feed({pokemon,  setHunger, setLast_Fed}) {
       alert(`${pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)} is not hungry!`)
     } else {
       axios.put(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
-        console.log(response.data.last_fed)
-        setHunger(response.data.hunger)
-        setLast_Fed(response.data.last_fed)
+        console.log(response.data)
+        setPokemon(response.data)
         alert(`${pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)} was fed!`)
       })
+      window.location.href = '/#/game'
     }
   }
 

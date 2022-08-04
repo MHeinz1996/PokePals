@@ -6,26 +6,14 @@ import Status from '../components/Status'
 import Feed from '../components/Feed'
 
 function Play({user, pokemon, setPokemon}) {
-  const [happiness, setHappiness] = useState(pokemon.happiness)
-  const [hunger, setHunger] = useState(pokemon.hunger)
-  const [last_fed, setLast_Fed] = useState(pokemon.last_fed)
-  const [firstRender, setFirstRender] = useState(true)
-
-  useEffect(() => {
-    if(!firstRender) {
-      axios.put(`/pokemon/${pokemon.id}/save_game`, {'hunger': hunger, 'happiness': happiness}).then((response) => {
-        console.log(response.data.saved)
-        console.log(`Hunger: ${response.data.hunger}, Happiness: ${response.data.happiness}`)
-      })
-      window.location.href = '/#/game'
-    }
-  }, [hunger])
+  let species = pokemon.species
+  let happiness = pokemon.happiness
+  let hunger = pokemon.hunger
   
   useEffect(() => {
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
-    setFirstRender(false)
-    console.log(pokemon)
+    console.log('Play Page', pokemon)
   }, [])
   
   const cryAudio = () => {
@@ -37,15 +25,19 @@ function Play({user, pokemon, setPokemon}) {
     event.preventDefault()
     // add params to send game info to back end for saving
     axios.post('/logout').then((response) => {
-      console.log(response.data)
       window.location.href = '/'
     })
+  }
+  
+  const saveGame = (hunger, happiness) => {
+
   }
   
   const checkLastFed = () => {
     axios.get(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
       // response is difference in hours since the last time pokemon was fed
       let hours_since_fed = +response.data.time_diff
+      console.log('Hours since fed:', hours_since_fed)
       if(hours_since_fed > 0) {
         let temp_hunger = hunger
         let temp_happiness = happiness
@@ -58,13 +50,15 @@ function Play({user, pokemon, setPokemon}) {
             temp_hunger--
           }
         }
-        setHunger(temp_hunger)
-        setHappiness(temp_happiness)
+
+        axios.put(`/pokemon/${pokemon.id}/save_game`, {'hunger': temp_hunger, 'happiness': temp_happiness}).then((response) => {
+          setPokemon(response.data)
+        })
       }
     })
   }
 
-  setInterval(checkLastFed, 5000) // change interval to 60000 when I get everything working
+  setInterval(checkLastFed, 10000) // change interval to 60000 when I get everything working
 
   return (
     <div>
@@ -73,10 +67,10 @@ function Play({user, pokemon, setPokemon}) {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-sm-2 game-button">
-            <Status pokemon={pokemon} />
+            <Status species={species} hunger={hunger} happiness={happiness}/>
           </div>
           <div className="col-sm-2 game-button">
-            <Feed pokemon={pokemon} setHunger={setHunger} setLast_Fed={setLast_Fed} />
+            <Feed pokemon={pokemon} setPokemon={setPokemon} />
           </div>
           <div className="col-sm-2 game-button">
             <button onClick={quit}>Quit</button>

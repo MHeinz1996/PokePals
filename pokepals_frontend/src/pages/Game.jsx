@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import Play from './Play'
 
 function Game({user, pokemon, setPokemon}) {  
   // Query backend for pokemon info
@@ -8,7 +7,7 @@ function Game({user, pokemon, setPokemon}) {
   // If they DO have an adopted pokemon, load that pokemon's data from the database
   useEffect(() => {
     axios.get('/pokemon', {'user': user}).then((response) => {
-      console.log(response)
+      console.log(response.data)
       if(response.data.success === false) {
         window.location.href = '/#/adopt'
       } else {
