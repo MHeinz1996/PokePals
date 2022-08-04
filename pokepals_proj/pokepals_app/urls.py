@@ -10,4 +10,5 @@ urlpatterns = [
   path('pokemon', views.pokemon, name="pokemon"),
   path('pokemon/<int:id>/<int:trainer_id>', views.pokemon_id, name="pokemon_id"),
   path('pokemon/<int:id>/last_fed', views.last_fed, name="last_fed"),
+  path('pokemon/<int:id>/save_game', views.save_game, name="save_game"),
 ]

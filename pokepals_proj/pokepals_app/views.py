@@ -118,43 +118,12 @@ def last_fed(request, id):
   pokemon = Pokemon.objects.all().get(id=id)
   
   if request.method == 'GET':
-    # pokemon.last_fed == 2022-08-04 03:13:46.807862+00:00
-    # now ==              2022-08-04 04:23:13.724261+00:00
-    date_time = timezone.now()
-    now = str(date_time).split(' ')
-    now_date = now[0].split('-')
-    now_time = now[1].split(':')
-    now_time.pop()
-    now_time.pop()
+    now = timezone.now()
+    time_diff = now - pokemon.last_fed
+    time_diff_seconds = time_diff.total_seconds()
+    time_diff = divmod(time_diff_seconds, 3600)[0]
 
-    fed = str(pokemon.last_fed).split(' ')
-    fed_date = fed[0].split('-')
-    fed_time = fed[1].split(':')
-    fed_time.pop()
-    fed_time.pop()
-
-    # if now_date[0] != fed_date[0]:
-    diff_year = int(now_date[0]) - int(fed_date[0])
-    # if now_date[1] != fed_date[1]:
-    diff_month = int(now_date[1]) - int(fed_date[1])
-    if diff_month < 0:
-      diff_month+=12
-    # if now_date[2] != fed_date[2]:
-    diff_day = int(now_date[2]) - int(fed_date[2])
-    if diff_day < 0:
-      diff_day+=28
-    # if now_time[0] != fed_time[0]:
-    diff_hour = int(now_time[0]) - int(fed_time[0])
-    if diff_hour < 0:
-      diff_hour+=24
-    # if now_time[1] != fed_time[1]:
-    diff_min = int(now_time[1]) - int(fed_time[1])
-    if diff_min < 0:
-      diff_min+=60
-      
-    time_diff = f"{diff_year}-{diff_month}-{diff_day} {diff_hour}:{diff_min}"
-
-    return JsonResponse({'time diff': time_diff})
+    return JsonResponse({'time_diff': str(time_diff)})
 
   if request.method == 'PUT':
     pokemon.last_fed = timezone.now()
@@ -166,3 +135,16 @@ def last_fed(request, id):
     pokemon.save()
     return JsonResponse({'hunger': pokemon.hunger, 'last_fed': pokemon.last_fed})
   return JsonResponse({'last_fed': 'last_fed view'})
+
+@api_view(['PUT'])
+def save_game(request, id):
+  pokemon = Pokemon.objects.all().get(id=id)
+  body = json.loads(request.body)
+  hunger = body['hunger']
+  happiness = body['happiness']
+  pokemon.hunger = hunger
+  pokemon.happiness = happiness
+  pokemon.full_clean()
+  pokemon.save()
+  return JsonResponse({'saved': 'Game saved', 'hunger': pokemon.hunger, 'happiness': pokemon.happiness})
+  

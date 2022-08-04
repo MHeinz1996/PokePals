@@ -13,7 +13,10 @@ function Play({user, pokemon, setPokemon}) {
 
   useEffect(() => {
     if(!firstRender) {
-      console.log("hunger updated")
+      axios.put(`/pokemon/${pokemon.id}/save_game`, {'hunger': hunger, 'happiness': happiness}).then((response) => {
+        console.log(response.data.saved)
+        console.log(`Hunger: ${response.data.hunger}, Happiness: ${response.data.happiness}`)
+      })
       window.location.href = '/#/game'
     }
   }, [hunger])
@@ -33,7 +36,6 @@ function Play({user, pokemon, setPokemon}) {
   const quit = (event) => {
     event.preventDefault()
     // add params to send game info to back end for saving
-    // 
     axios.post('/logout').then((response) => {
       console.log(response.data)
       window.location.href = '/'
@@ -42,7 +44,23 @@ function Play({user, pokemon, setPokemon}) {
   
   const checkLastFed = () => {
     axios.get(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
-      console.log(response)
+      // response is difference in hours since the last time pokemon was fed
+      let hours_since_fed = +response.data.time_diff
+      if(hours_since_fed > 0) {
+        let temp_hunger = hunger
+        let temp_happiness = happiness
+        for(let i=0; i<hours_since_fed; i++) {
+          if(temp_happiness === 0) {
+            break
+          } else if(temp_hunger === 0) {
+            temp_happiness-=2
+          } else {
+            temp_hunger--
+          }
+        }
+        setHunger(temp_hunger)
+        setHappiness(temp_happiness)
+      }
     })
   }
 
