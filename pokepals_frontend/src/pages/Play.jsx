@@ -7,6 +7,8 @@ import Feed from '../components/Feed'
 import Play_w_Pokemon from '../components/Play_w_Pokemon'
 
 function Play({user, pokemon, setPokemon}) {
+  const [happinessState, setHappinessState] = useState(pokemon.happiness)
+  const [hungerState, setHungerState] = useState(pokemon.hunger)
   let species = pokemon.species
   let happiness = pokemon.happiness
   let hunger = pokemon.hunger
@@ -24,22 +26,21 @@ function Play({user, pokemon, setPokemon}) {
 
   const quit = (event) => {
     event.preventDefault()
-    // add params to send game info to back end for saving
+    
+    axios.put(`/pokemon/${pokemon.id}/save_game`, {'hunger': hungerState, 'happiness': happinessState}).then((response) => {
+      setPokemon(response.data)
+    })
+
     axios.post('/logout').then((response) => {
       window.location.href = '/'
     })
   }
   
-  // Bug that I am found:
-  // doesn't subtract only the amount of stars per hour, it will constantly remove
-  // stars if pokemon hasn't been fed.
-  // for example, if checkLastFed has been ran 3 times, and each time it has said
-  // that it has been only 1 hour since the pokemon was last fed, it will take
-  // away a half star EVERY TIME last_fed is checked
   const checkLastFed = () => {
     axios.get(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
       // response is difference in hours since the last time pokemon was fed
       let hours_since_fed = +response.data.time_diff
+      console.log(`Hours since fed last: ${hours_since_fed}`)
       if(hours_since_fed > 0) {
         let temp_hunger = hunger
         let temp_happiness = happiness
@@ -52,10 +53,8 @@ function Play({user, pokemon, setPokemon}) {
             temp_hunger--
           }
         }
-
-        axios.put(`/pokemon/${pokemon.id}/save_game`, {'hunger': temp_hunger, 'happiness': temp_happiness}).then((response) => {
-          setPokemon(response.data)
-        })
+        setHappinessState(temp_happiness)
+        setHungerState(temp_hunger)
       }
     })
   }
@@ -69,10 +68,10 @@ function Play({user, pokemon, setPokemon}) {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-sm-2 game-button">
-            <Status species={species} hunger={hunger} happiness={happiness}/>
+            <Status species={species} hunger={hungerState} happiness={happinessState}/>
           </div>
           <div className="col-sm-2 game-button">
-            <Feed pokemon={pokemon} setPokemon={setPokemon} />
+            <Feed pokemon={pokemon} hungerState={hungerState} setPokemon={setPokemon} setHungerState={setHungerState}/>
           </div>
           <div className="col-sm-2 game-button">
             <Play_w_Pokemon pokemon={pokemon} setPokemon={setPokemon} />
