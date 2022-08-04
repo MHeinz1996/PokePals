@@ -29,10 +29,6 @@ function Play({user, pokemon, setPokemon}) {
     })
   }
   
-  const saveGame = (hunger, happiness) => {
-
-  }
-  
   const checkLastFed = () => {
     axios.get(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
       // response is difference in hours since the last time pokemon was fed

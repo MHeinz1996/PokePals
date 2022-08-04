@@ -20,7 +20,6 @@ function Game({user, pokemon, setPokemon}) {
 
   return (
     <div>
-      {/* <h1>Welcome, {user.email}</h1> */}
     </div>
   )
 }

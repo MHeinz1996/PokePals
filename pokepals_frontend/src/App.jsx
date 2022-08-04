@@ -31,7 +31,6 @@ function App() {
           <Route path='/play' element={<Play user={user} pokemon={pokemon} setPokemon={setPokemon}/>} />
         </Routes>
       </Router>
-      {/* {!user && <SignUp setUser={setUser} />} */}
     </div>
   )
 }
