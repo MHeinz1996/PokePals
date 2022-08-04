@@ -17,6 +17,7 @@ function Play({user, pokemon, setPokemon}) {
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
     console.log('Play Page', pokemon)
+    checkLastFed()
   }, [])
   
   const cryAudio = () => {
