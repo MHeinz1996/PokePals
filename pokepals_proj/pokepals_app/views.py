@@ -11,8 +11,13 @@ from django.utils import timezone
 path = subprocess.check_output(['pwd']).decode("utf-8").strip() # Runs pwd from terminal, converts from binary to string, then strips newline chars
 
 def index(request):
+  # reads static/index.html file created by React and serves it to the frontend
   index = open('static/index.html').read()
   return HttpResponse(index)
+
+########################################################################################################
+# AUTH
+########################################################################################################
   
 @api_view(['POST'])
 def sign_up(request):
@@ -67,6 +72,10 @@ def who_am_i(request):
     return HttpResponse(data)
   else:
     return JsonResponse({'user': None})
+
+########################################################################################################
+# AJAX
+########################################################################################################
 
 @api_view(['GET'])
 def pokemon(request):
@@ -139,4 +148,3 @@ def save_game(request, id):
   pokemon.full_clean()
   pokemon.save()
   return JsonResponse(model_to_dict(pokemon))
-  
