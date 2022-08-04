@@ -18,7 +18,7 @@ function Play_w_Pokemon() {
         }
       }
       document.getElementById('first-num').innerHTML = `${num1}`
-      document.getElementById('second-num').innerHTML = `${num2}`
+      document.getElementById('second-num').innerHTML = `?`
       setHidden(!hidden)
     } else {
       document.getElementById('first-num').innerHTML = ''

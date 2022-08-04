@@ -94,7 +94,7 @@ function Play({user, pokemon, setPokemon}) {
           <div className="col-sm-5">
             <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
           </div>
-          <div className="col-sm-1">
+          <div id="mystery-num" className="col-sm-1">
             <h1 id='second-num'></h1>
           </div>
           { info &&
