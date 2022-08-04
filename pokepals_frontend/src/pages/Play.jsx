@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import getCookie from '../components/GetCookie'
 import Wad from 'web-audio-daw'
@@ -14,7 +14,6 @@ function Play({user, pokemon, setPokemon}) {
   useEffect(() => {
     if(!firstRender) {
       console.log("hunger updated")
-      setTimeout(1500)
       window.location.href = '/#/game'
     }
   }, [hunger])
@@ -34,24 +33,34 @@ function Play({user, pokemon, setPokemon}) {
   const quit = (event) => {
     event.preventDefault()
     // add params to send game info to back end for saving
+    // 
     axios.post('/logout').then((response) => {
       console.log(response.data)
       window.location.href = '/'
     })
   }
+  
+  const checkLastFed = () => {
+    axios.get(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
+      console.log(response)
+    })
+  }
+
+  setInterval(checkLastFed, 5000) // change interval to 60000 when I get everything working
 
   return (
     <div>
+      <h3>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</h3>
       <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-sm-2">
+          <div className="col-sm-2 game-button">
             <Status pokemon={pokemon} />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 game-button">
             <Feed pokemon={pokemon} setHunger={setHunger} setLast_Fed={setLast_Fed} />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-2 game-button">
             <button onClick={quit}>Quit</button>
           </div>    
         </div>

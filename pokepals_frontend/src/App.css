@@ -54,3 +54,7 @@ body {
   height: 20rem;
   width: 20rem;
 }
+
+.game-button {
+  padding-bottom: 10px;
+}
