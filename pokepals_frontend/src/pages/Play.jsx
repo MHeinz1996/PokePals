@@ -64,7 +64,7 @@ function Play({user, pokemon, setPokemon}) {
 
   // Check to see when the pokemon was fed last
   // then set the hunger and happiness level of the pokemon accordingly
-  setInterval(checkLastFed, 10000)
+  setInterval(checkLastFed, 60000)
 
   return (
     <div>
@@ -83,9 +83,9 @@ function Play({user, pokemon, setPokemon}) {
         <div className="row justify-content-center">
           { info &&
             <div id='info1' className="col-sm-2">
-              <h5>PokéPals!</h5>
-              <br/>
-              <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway!</p>
+              <h6>PokéPals!</h6>
+              <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway! If you choose to, you can release your Pokémon. THIS CANNOT BE UNDONE</p>
+              <Button variant='danger'>Release Pokémon</Button>
             </div>
           }
           <div className="col-sm-1">
@@ -99,7 +99,7 @@ function Play({user, pokemon, setPokemon}) {
           </div>
           { info &&
             <div id='info2' className="col-sm-2">
-              <p>Instructions for 'Play': A number will appear on the left. You have to guess if the next number that appears on the right will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
+              <p>Instructions for 'Play': A number will appear on the left of your Pokémon. You have to guess if the next number that appears on the right of your Pokémon will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
             </div>
           }
         </div>
