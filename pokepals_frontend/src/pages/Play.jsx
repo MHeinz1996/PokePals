@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import Button from 'react-bootstrap/Button'
 import getCookie from '../components/GetCookie'
 import Wad from 'web-audio-daw'
 import Status from '../components/Status'
@@ -9,6 +10,7 @@ import Play_w_Pokemon from '../components/Play_w_Pokemon'
 function Play({user, pokemon, setPokemon}) {
   const [happinessState, setHappinessState] = useState(pokemon.happiness)
   const [hungerState, setHungerState] = useState(pokemon.hunger)
+  const [info, setInfo] = useState(false)
   let species = pokemon.species
   let happiness = pokemon.happiness
   let hunger = pokemon.hunger
@@ -66,14 +68,26 @@ function Play({user, pokemon, setPokemon}) {
 
   return (
     <div>
-      <h2>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</h2>
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-sm-2">
-            <h5>PokéPals!</h5>
-            <br/>
-            <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway!</p>
+          <div className="col-sm-1"> </div>
+          <div className="col-sm-10">
+            <h2>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</h2>
           </div>
+          <div className="col-sm-1">
+            <Button variant='light info-button' onClick={() => setInfo(!info)}>info</Button>
+          </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="row justify-content-center">
+          { info &&
+            <div id='info1' className="col-sm-2">
+              <h5>PokéPals!</h5>
+              <br/>
+              <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway!</p>
+            </div>
+          }
           <div className="col-sm-1">
             <h1 id='first-num'></h1>
           </div>
@@ -83,9 +97,11 @@ function Play({user, pokemon, setPokemon}) {
           <div className="col-sm-1">
             <h1 id='second-num'></h1>
           </div>
-          <div className="col-sm-2">
-            <p>Instructions for 'Play': A number will appear on the left. You have to guess if the next number that appears on the right will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
-          </div>
+          { info &&
+            <div id='info2' className="col-sm-2">
+              <p>Instructions for 'Play': A number will appear on the left. You have to guess if the next number that appears on the right will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
+            </div>
+          }
         </div>
       </div>
       <div className="container">
