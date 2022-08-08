@@ -125,6 +125,12 @@ def last_fed(request, id):
 
     return JsonResponse({'time_diff': str(time_diff)})
 
+  # Fix this function so that it takes the updated hunger level from the front end
+  # and does the math on that, then store it to the database
+  # The way it works right now, if the database says that the last time I logged in,
+  # my pokemon's hunger was a 10, but that was 10 days ago, the frontend will show that
+  # my pokemon's hunger is actually 0, but the database still says 10. So when I feed it
+  # this way, the hunger level goes all the way from 0 to 10 on one feeding, which shouldn't happen
   if request.method == 'PUT':
     # when pokemon is fed, update their respective columns in the databse
     pokemon.last_fed = timezone.now()
