@@ -7,7 +7,6 @@ function Game({user, pokemon, setPokemon}) {
   // If user HAS adopted  a pokemon, load that pokemon's data from the database
   useEffect(() => {
     axios.get('/pokemon', {'user': user}).then((response) => {
-      console.log(response.data)
       if(response.data.success === false) {
         window.location.href = '/#/adopt'
       } else {

@@ -8,7 +8,6 @@ function Login({user, setUser, account, setAccount}) {
     let password = document.getElementById('password').value
     
     axios.post('/login', {email: email, password: password}).then((response) => {
-      console.log(response.data)
       if(response.data.success === true) {
         setUser({id: response.data.trainer_id, email: email})
         window.location.href = '/#/game'
