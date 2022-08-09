@@ -11,6 +11,7 @@ function Play({user, pokemon, setPokemon}) {
   const [happinessState, setHappinessState] = useState(pokemon.happiness)
   const [hungerState, setHungerState] = useState(pokemon.hunger)
   const [info, setInfo] = useState(false)
+  const [firstRender, setFirstRender] = useState(true)
   const [mysteryNum, setMysteryNum] = useState(null)
   let species = pokemon.species
   let happiness = pokemon.happiness
@@ -19,7 +20,10 @@ function Play({user, pokemon, setPokemon}) {
   useEffect(() => {
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
-    checkLastFed()
+    if(firstRender){
+      checkLastFed()
+    }
+    setFirstRender(false)
   }, [])
   
   const cryAudio = () => {

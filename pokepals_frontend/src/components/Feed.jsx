@@ -13,7 +13,6 @@ function Feed({pokemon, hungerState, happinessState, setPokemon, setHungerState}
         setPokemon(response.data)
         alert(`${pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)} was fed!`)
       })
-      window.location.href = '/#/play'
     }
   }
 
