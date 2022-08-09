@@ -128,15 +128,38 @@ def last_fed(request, id):
   if request.method == 'PUT':
     body = json.loads(request.body)
     pokemon.hunger = int(body['current_hunger'])
+    pokemon.happiness = int(body['current_happiness'])
     # when pokemon is fed, update their respective columns in the databse
     pokemon.last_fed = timezone.now()
     if pokemon.hunger + 4 > 10:
       pokemon.hunger = 10
     else:
-      pokemon.hunger+=4
+      pokemon.hunger += 4
     pokemon.full_clean()
     pokemon.save()
     return JsonResponse(model_to_dict(pokemon))
+
+@api_view(['PUT'])
+def play(request, id):
+  pokemon = Pokemon.objects.all().get(id=id)
+  
+  body = json.loads(request.body)
+  pokemon.happiness = int(body['current_happiness'])
+  correct = body['correct']
+  
+  if correct == 'Correct':
+    if pokemon.happiness + 2 > 10:
+      pokemon.happiness = 10
+    else:
+      pokemon.happiness += 2
+  else:
+    if pokemon.happiness - 1 < 0:
+      pokemon.happiness = 0
+    else:
+      pokemon.happiness -= 1
+  pokemon.full_clean()
+  pokemon.save()
+  return JsonResponse(model_to_dict(pokemon))
 
 # @api_view(['PUT'])
 # def save_game(request, id):

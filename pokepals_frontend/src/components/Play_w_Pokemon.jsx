@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function Play_w_Pokemon() {
+function Play_w_Pokemon({setMysteryNum}) {
   const [hidden, setHidden] = useState(true)
 
   const NumberGame = () => {
@@ -17,12 +17,17 @@ function Play_w_Pokemon() {
           num2--
         }
       }
+      setMysteryNum(num2)
       document.getElementById('first-num').innerHTML = `${num1}`
       document.getElementById('second-num').innerHTML = `?`
+      document.getElementById('higherButton').hidden = false
+      document.getElementById('lowerButton').hidden = false
       setHidden(!hidden)
     } else {
       document.getElementById('first-num').innerHTML = ''
       document.getElementById('second-num').innerHTML = ''
+      document.getElementById('higherButton').hidden = true
+      document.getElementById('lowerButton').hidden = true
       setHidden(!hidden)
     }
   }

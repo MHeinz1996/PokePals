@@ -11,6 +11,7 @@ function Play({user, pokemon, setPokemon}) {
   const [happinessState, setHappinessState] = useState(pokemon.happiness)
   const [hungerState, setHungerState] = useState(pokemon.hunger)
   const [info, setInfo] = useState(false)
+  const [mysteryNum, setMysteryNum] = useState(null)
   let species = pokemon.species
   let happiness = pokemon.happiness
   let hunger = pokemon.hunger
@@ -18,7 +19,6 @@ function Play({user, pokemon, setPokemon}) {
   useEffect(() => {
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
-    console.log('Play Page', pokemon)
     checkLastFed()
   }, [])
   
@@ -66,6 +66,37 @@ function Play({user, pokemon, setPokemon}) {
   // then set the hunger and happiness level of the pokemon accordingly
   setInterval(checkLastFed, 60000)
 
+  const MysteryNum = (guess) => {
+    let temp_happiness = happinessState
+    let correct = null
+  
+    const num1 = document.getElementById('first-num').innerHTML
+    if(guess == 'higher') {
+      if(+mysteryNum > +num1) {
+        alert('Correct!')
+        correct = 'Correct'
+      } else {
+        alert('Wrong 😓')
+        correct = 'Incorrect'
+      }
+    }
+
+    if(guess == 'lower') {
+      if(+mysteryNum < +num1) {
+        alert('Correct!')
+        correct = 'Correct'
+      } else {
+        alert('Wrong 😓')
+        correct = 'Incorrect'
+      }
+    }
+    document.getElementById('second-num').innerHTML = mysteryNum
+    axios.put(`/pokemon/${pokemon.id}/play`, {current_happiness: temp_happiness, correct: correct}).then((response) => {
+      setHappinessState(response.data.happiness)
+      setPokemon(response.data)
+    })
+  }
+  
   return (
     <div>
       <div className="container">
@@ -96,6 +127,11 @@ function Play({user, pokemon, setPokemon}) {
           </div>
           <div id="mystery-num" className="col-sm-1">
             <h1 id='second-num'></h1>
+            <br/>
+            <button id="higherButton" onClick={() => MysteryNum('higher')} hidden>Higher</button>
+            <br />
+            <br />
+            <button id="lowerButton" onClick={() => MysteryNum('lower')} hidden>Lower</button>
           </div>
           { info &&
             <div id='info2' className="col-sm-2">
@@ -110,10 +146,10 @@ function Play({user, pokemon, setPokemon}) {
             <Status species={species} hunger={hungerState} happiness={happinessState}/>
           </div>
           <div className="col-sm-2 game-button">
-            <Feed pokemon={pokemon} hungerState={hungerState} setPokemon={setPokemon} setHungerState={setHungerState}/>
+            <Feed pokemon={pokemon} hungerState={hungerState} happinessState={happinessState} setPokemon={setPokemon} setHungerState={setHungerState}/>
           </div>
           <div className="col-sm-2 game-button">
-            <Play_w_Pokemon pokemon={pokemon} setPokemon={setPokemon} />
+            <Play_w_Pokemon setMysteryNum={setMysteryNum} />
           </div>
           <div className="col-sm-2 game-button">
             <button onClick={quit}>Quit</button>
