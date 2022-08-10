@@ -161,15 +161,9 @@ def play(request, id):
   pokemon.save()
   return JsonResponse(model_to_dict(pokemon))
 
-# @api_view(['PUT'])
-# def save_game(request, id):
-#   # when game is saved, updates the database with latest data
-#   pokemon = Pokemon.objects.all().get(id=id)
-#   body = json.loads(request.body)
-#   hunger = body['hunger']
-#   happiness = body['happiness']
-#   pokemon.hunger = hunger
-#   pokemon.happiness = happiness
-#   pokemon.full_clean()
-#   pokemon.save()
-#   return JsonResponse(model_to_dict(pokemon))
+@api_view(['DELETE'])
+def release(request, id):
+  pokemon = Pokemon.objects.all().get(id=id)
+  species = pokemon.species
+  pokemon.delete()
+  return JsonResponse({f'{species}': 'Released!'})
