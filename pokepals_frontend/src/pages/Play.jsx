@@ -51,13 +51,11 @@ function Play({user, pokemon, setPokemon}) {
         let count = 0
         for(let i=0; i<hours_since_fed; i++) {
           // count how many hours the pokemon has been extremely unhappy
-          if(temp_happiness === 0) {
-            count++
-          }
-          
           if(temp_hunger === 0) {
-            if(temp_happiness -= 2 > 0) {
+            if(temp_happiness -= 2 >= 0) {
               temp_happiness -= 2
+            } else if(temp_happiness === 0) {
+              count++ 
             } else {
               temp_happiness = 0
             }
@@ -65,7 +63,6 @@ function Play({user, pokemon, setPokemon}) {
             temp_hunger--
           }
         }
-        
         // if pokemon has had 0 happiness for over 72 hours, it will run away
         if(count > 72){
           ReleasePokemon(2)
