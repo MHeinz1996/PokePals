@@ -100,6 +100,13 @@ function Play({user, pokemon, setPokemon}) {
       setPokemon(response.data)
     })
   }
+
+  const ReleasePokemon = () => {
+    axios.delete(`/pokemon/${pokemon.id}/release`).then((response) => {
+      alert('Your Pokémon has been released!')
+      window.location.href = '/#/game'
+    })
+  }
   
   return (
     <div>
@@ -120,7 +127,7 @@ function Play({user, pokemon, setPokemon}) {
             <div id='info1' className="col-sm-2">
               <h6>PokéPals!</h6>
               <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway! If you choose to, you can release your Pokémon. THIS CANNOT BE UNDONE</p>
-              <Button variant='danger'>Release Pokémon</Button>
+              <Button variant='danger' onClick={() => ReleasePokemon()}>Release Pokémon</Button>
             </div>
           }
           <div className="col-sm-1">
