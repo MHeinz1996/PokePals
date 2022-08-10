@@ -48,20 +48,33 @@ function Play({user, pokemon, setPokemon}) {
         // set temp vars to database's values
         let temp_hunger = hunger
         let temp_happiness = happiness
+        let count = 0
         for(let i=0; i<hours_since_fed; i++) {
+          // count how many hours the pokemon has been extremely unhappy
           if(temp_happiness === 0) {
-            break
-          } else if(temp_hunger === 0) {
-            temp_happiness-=2
+            count++
+          }
+          
+          if(temp_hunger === 0) {
+            if(temp_happiness -= 2 > 0) {
+              temp_happiness -= 2
+            } else {
+              temp_happiness = 0
+            }
           } else {
             temp_hunger--
           }
         }
-
-        // set the states so I can manipulate frontend components
-        // without messing with the database
-        setHappinessState(temp_happiness)
-        setHungerState(temp_hunger)
+        
+        // if pokemon has had 0 happiness for over 72 hours, it will run away
+        if(count > 72){
+          ReleasePokemon(2)
+        } else {
+          // set the states so I can manipulate frontend components
+          // without messing with the database
+          setHappinessState(temp_happiness)
+          setHungerState(temp_hunger)
+        }
       }
     })
   }
@@ -101,9 +114,13 @@ function Play({user, pokemon, setPokemon}) {
     })
   }
 
-  const ReleasePokemon = () => {
+  const ReleasePokemon = (option) => {
     axios.delete(`/pokemon/${pokemon.id}/release`).then((response) => {
-      alert('Your Pokémon has been released!')
+      if(option === 1) {
+        alert('Your Pokémon has been released!')
+      } else {
+        alert("Your Pokémon was unhappy with the way you've negleted it. It ran away to find a better life.")
+      }
       window.location.href = '/#/game'
     })
   }
@@ -127,7 +144,7 @@ function Play({user, pokemon, setPokemon}) {
             <div id='info1' className="col-sm-2">
               <h6>PokéPals!</h6>
               <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway! If you choose to, you can release your Pokémon. THIS CANNOT BE UNDONE</p>
-              <Button variant='danger' onClick={() => ReleasePokemon()}>Release Pokémon</Button>
+              <Button variant='danger' onClick={() => ReleasePokemon(1)}>Release Pokémon</Button>
             </div>
           }
           <div className="col-sm-1">
