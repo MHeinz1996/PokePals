@@ -150,27 +150,27 @@ function Play({user, pokemon, setPokemon}) {
             <h1 className='pokemon-species'><strong>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</strong></h1>
           </div>
           <div className="col-sm-1">
-            <Button variant='light info-button' onClick={() => setInfo(!info)}>info</Button>
+            <button onClick={() => setInfo(!info)}>info</button>
           </div>
         </div>
       </div>
       <div className="container">
-        <div className="row justify-content-center pokemon-font">
+        <div className="row justify-content-center">
           { info &&
-            <div id='info1' className="col-sm-2 info-text">
-              <h6>PokéPals!</h6>
-              <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway! If you choose to, you can release your Pokémon. THIS CANNOT BE UNDONE</p>
+            <div id='info1' className="col-sm-3">
+              <h6 className='pokemon-font'>PokéPals!</h6>
+              <p className='pokemon-font'>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway! If you choose to, you can release your Pokémon. THIS CANNOT BE UNDONE</p>
               <Button variant='danger' onClick={() => ReleasePokemon(1)}>Release Pokémon</Button>
             </div>
           }
           <div className="col-sm-1">
-            <h1 id='first-num'></h1>
+            <h1 id='first-num' className='pokemon-species'></h1>
           </div>
-          <div className="col-sm-5">
+          <div className="col-sm-4">
             <img id="sprite" src={pokemon.sprite} alt={pokemon.species} onClick={() => {cryAudio()}}/>
           </div>
           <div id="mystery-num" className="col-sm-1">
-            <h1 id='second-num'></h1>
+            <h1 id='second-num' className='pokemon-species'></h1>
             <br/>
             <button id="higherButton" onClick={() => MysteryNum('higher')} hidden>Higher</button>
             <br />
@@ -178,7 +178,7 @@ function Play({user, pokemon, setPokemon}) {
             <button id="lowerButton" onClick={() => MysteryNum('lower')} hidden>Lower</button>
           </div>
           { info &&
-            <div id='info2' className="col-sm-2">
+            <div id='info2' className="col-sm-3 pokemon-font">
               <p>Instructions for 'Play': A number will appear on the left of your Pokémon. You have to guess if the next number that appears on the right of your Pokémon will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
             </div>
           }

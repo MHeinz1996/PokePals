@@ -20,7 +20,7 @@ function SignUp({account, setAccount}) {
 
   return(
     <div className="SignUp">
-      <h3>Sign Up</h3>
+      <h3 className='login-signup'>Sign Up</h3>
       <br />
       <form onSubmit={handleSubmit}>
         <input type="email" id="email" placeholder='email'/>

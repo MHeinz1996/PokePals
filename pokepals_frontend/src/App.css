@@ -50,6 +50,10 @@ body {
   overflow: auto;
 }
 
+.login-signup {
+  color: white;
+}
+
 #sprite {
   height: 20rem;
   width: 20rem;
@@ -58,7 +62,15 @@ body {
 .pokemon-species {
   font-size: 5rem;
   -webkit-text-stroke:3px #3264AF;
-  font-family: arial; 
+  font-family: cursive; 
+  color: #FFCC01;
+}
+
+.pokemon-font {
+  font-size: 1.28rem;
+  font-weight: 600;
+  -webkit-text-stroke:1px #3264AF;
+  font-family: cursive; 
   color: #FFCC01;
 }
 
@@ -66,11 +78,23 @@ body {
   padding-bottom: 10px;
 }
 
-
 .pokemon-field {
   background-image: url('https://cutewallpaper.org/21/pokemon-battle-field-background/Pokemon-X-and-Y-battle-background-10-by-PhoenixOfLight92-on-.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-color: black;
+}
+
+.pokeball-wallpaper {
+  background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a3e65d21-5e60-42d8-a8b4-cdd8e34ce885/d3415su-2396b8da-f3f8-4979-ba9f-a0dc381500c8.png/v1/fill/w_900,h_563,q_80,strp/pokeball_wallpaper_2_by_aervormund_d3415su-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTYzIiwicGF0aCI6IlwvZlwvYTNlNjVkMjEtNWU2MC00MmQ4LWE4YjQtY2RkOGUzNGNlODg1XC9kMzQxNXN1LTIzOTZiOGRhLWYzZjgtNDk3OS1iYTlmLWEwZGMzODE1MDBjOC5wbmciLCJ3aWR0aCI6Ijw9OTAwIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.KlYWLMAv21kCZ0etvwYKlFsNU-pgqBlG8Z53VUhfx2I');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-color: black;
+}
+
+.info-text {
+  font-weight: 600;
+  color: floralwhite;
 }

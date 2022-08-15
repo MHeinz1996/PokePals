@@ -21,7 +21,7 @@ function Login({user, setUser, account, setAccount}) {
   
   return(
     <div className="Login">
-      <h3>Log In</h3>
+      <h3 className='login-signup'>Log In</h3>
       <br />
       <form onSubmit={handleSubmit}>
         <input type="email" id="email" placeholder='email'/>
