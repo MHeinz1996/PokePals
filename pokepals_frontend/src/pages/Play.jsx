@@ -21,7 +21,10 @@ function Play({user, pokemon, setPokemon}) {
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
     if(firstRender){
+      // Check to see when the pokemon was fed last
+      // then set the hunger and happiness level of the pokemon accordingly
       checkLastFed()
+      setInterval(checkLastFed, 60000)
     }
     setFirstRender(false)
   }, [])
@@ -75,10 +78,6 @@ function Play({user, pokemon, setPokemon}) {
       }
     })
   }
-
-  // Check to see when the pokemon was fed last
-  // then set the hunger and happiness level of the pokemon accordingly
-  setInterval(checkLastFed, 60000)
 
   const MysteryNum = (guess) => {
     let temp_happiness = happinessState
