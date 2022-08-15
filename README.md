@@ -21,13 +21,15 @@ A [tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi)-like game where you can
     - playing with Pokémon will be similar to how it was in tamagotchi
       - to the left of the Pokémon, a number from 1-9 will appear
       - the player needs to guess if the next number will be higher or lower than the previous number
-      - if they get the answer correct, happiness increases by 1
-      - if they get the answer wrong, happiness decreases by 1
+      - if they get the answer correct, happiness increases by 1 star
+      - if they get the answer wrong, happiness decreases by half a star
       - maybe in a future release, change game to be "Who's that Pokemon?!"
   - Feed Pokémon when it is hungry
-    - every hour not fed, hunger level decreases by 1
-    - every hour that hunger == 0, happiness decreses by 2
-  - If Pokémon's hunger and happiness are both 0, Pokémon runs away due to mistreatment
+    - every hour not fed, hunger level decreases by half a star
+    - every hour that hunger == 0, happiness decreses by 1 star
+    - if Pokémon has 4 or more stars in its belly, it won't be hungry, and won't eat
+  - If Pokémon's happiness is 0 stars for over 72 hours, Pokémon runs away due to mistreatment
+  - Clicking on the Pokémon will play that Pokémon's cry sound
   
 ## APIs
 - [Pokeapi](https://pokeapi.co/)
@@ -45,9 +47,9 @@ A [tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi)-like game where you can
   - happiness (int from 0-10 to represent stars. ex. happiness:9 == 4.5-stars == very happy)
   - hunger (int from 0-10 to represent stars. ex. hunger:0 == 0-stars == starving)
   - last_fed (datetime to be used to calculate hunger)
-  - cry (sound that the pokemon makes. Pulled from pkmnapi)
+  - cry (sound that the pokemon makes. Pulled from pkmnapi, stored as a path to where the .wav file is downloaded to)
   - sprite (url of pokemon image)
-  - trainer (foreignkey AppUser)
+  - trainer (foreignkey Trainer, One-to-One relationship)
 
 ### CRUD:
 - CREATE
@@ -55,7 +57,8 @@ A [tamagotchi](https://en.wikipedia.org/wiki/Tamagotchi)-like game where you can
 - READ
   - When user logs in, frontend will get Pokémon's data from backend and set appropriate states in the frontend
 - UPDATE
-  - When the user saves their game, frontend will send current game data to backend
+  - When the user interacts with their pokemon, frontend will send current game data to backend
   - backend will then update the Pokémon's data
 - DELETE
   - User can decide to release their Pokémon forever
+  - Pokémon can run away
