@@ -16,7 +16,7 @@ function Play({user, pokemon, setPokemon}) {
   let species = pokemon.species
   let happiness = pokemon.happiness
   let hunger = pokemon.hunger
-  
+
   useEffect(() => {
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
