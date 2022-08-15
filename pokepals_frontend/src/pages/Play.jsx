@@ -20,7 +20,6 @@ function Play({user, pokemon, setPokemon}) {
 
   useEffect(() => {
     if(!firstRender) {
-      console.log('NEXT RENDER')
       setHappinessState(pokemon.happiness)
       setHungerState(pokemon.hunger)
       checkLastFed(pokemon_id)
@@ -30,15 +29,11 @@ function Play({user, pokemon, setPokemon}) {
   }, [pokemon])
   
   let success = false
-
   useEffect(() => {
-    // console.log(species, happiness, hunger)
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
     if(firstRender){
-      console.log("FIRST RENDER")
       checkLastFed(pokemon_id)
-      console.log(`mount pokemon_id: ${pokemon.id}`)
       if(success = true) {
         setInterval(() => {checkLastFed(pokemon_id)}, 60000)
       }
