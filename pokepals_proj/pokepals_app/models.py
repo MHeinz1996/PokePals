@@ -15,8 +15,8 @@ class Trainer(AbstractUser):
   
 class Pokemon(models.Model):
   species = models.CharField(max_length=255)
-  happiness = models.IntegerField(default=10)
-  hunger = models.IntegerField(default=10)
+  happiness = models.IntegerField(default=5)
+  hunger = models.IntegerField(default=5)
   last_fed = models.DateTimeField(default=timezone.now)
   cry = models.CharField(max_length=255)
   sprite = models.CharField(max_length=255, default='')

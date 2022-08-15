@@ -101,7 +101,7 @@ def pokemon_id(request, id, trainer_id):
     try:
       # uses info from both APIs to create a pokemon in the database for that user
       # note that the 'cry' col isn't uploading a file, rather a path to where the API call saves the file
-      pokemon = Pokemon(species=name, sprite=sprite, happiness=10, hunger=10, cry=f'media/cries/pokemon{id}.wav', trainer_id=trainer_id)
+      pokemon = Pokemon(species=name, sprite=sprite, happiness=5, hunger=5, cry=f'media/cries/pokemon{id}.wav', trainer_id=trainer_id)
       pokemon.full_clean()
       pokemon.save()
     except Exception as e:
