@@ -111,7 +111,10 @@ def pokemon_id(request, id, trainer_id):
 @api_view(['GET', 'PUT'])
 def last_fed(request, id):
   # get pokemon from database
-  pokemon = Pokemon.objects.all().get(id=id)
+  try:
+    pokemon = Pokemon.objects.all().get(id=id)
+  except Exception as e:
+    return JsonResponse({'success': False})
   
   if request.method == 'GET':
     # return how long it has been (in hours) since the pokemon was last fed

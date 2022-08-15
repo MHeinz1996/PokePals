@@ -22,6 +22,8 @@ function Play_w_Pokemon({setMysteryNum}) {
       document.getElementById('second-num').innerHTML = `?`
       document.getElementById('higherButton').hidden = false
       document.getElementById('lowerButton').hidden = false
+      document.getElementById('higherButton').disabled = false
+      document.getElementById('lowerButton').disabled = false
       setHidden(!hidden)
     } else {
       document.getElementById('first-num').innerHTML = ''

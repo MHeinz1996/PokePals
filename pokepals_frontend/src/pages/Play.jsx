@@ -8,25 +8,42 @@ import Feed from '../components/Feed'
 import Play_w_Pokemon from '../components/Play_w_Pokemon'
 
 function Play({user, pokemon, setPokemon}) {
-  const [happinessState, setHappinessState] = useState(pokemon.happiness)
-  const [hungerState, setHungerState] = useState(pokemon.hunger)
-  const [info, setInfo] = useState(false)
-  const [firstRender, setFirstRender] = useState(true)
-  const [mysteryNum, setMysteryNum] = useState(null)
   let species = pokemon.species
   let happiness = pokemon.happiness
   let hunger = pokemon.hunger
+  let pokemon_id = pokemon.id
+  const [happinessState, setHappinessState] = useState(happiness)
+  const [hungerState, setHungerState] = useState(hunger)
+  const [info, setInfo] = useState(false)
+  const [firstRender, setFirstRender] = useState(true)
+  const [mysteryNum, setMysteryNum] = useState(null)
 
   useEffect(() => {
+    if(!firstRender) {
+      console.log('NEXT RENDER')
+      setHappinessState(pokemon.happiness)
+      setHungerState(pokemon.hunger)
+      checkLastFed(pokemon_id)
+      setInterval(() => {checkLastFed(pokemon_id)}, 60000)
+      setFirstRender(1)
+    }
+  }, [pokemon])
+  
+  let success = false
+
+  useEffect(() => {
+    // console.log(species, happiness, hunger)
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
     if(firstRender){
-      // Check to see when the pokemon was fed last
-      // then set the hunger and happiness level of the pokemon accordingly
-      checkLastFed()
-      setInterval(checkLastFed, 60000)
+      console.log("FIRST RENDER")
+      checkLastFed(pokemon_id)
+      console.log(`mount pokemon_id: ${pokemon.id}`)
+      if(success = true) {
+        setInterval(() => {checkLastFed(pokemon_id)}, 60000)
+      }
     }
-    setFirstRender(false)
+    setFirstRender(!firstRender)
   }, [])
   
   const cryAudio = () => {
@@ -42,8 +59,13 @@ function Play({user, pokemon, setPokemon}) {
     })
   }
   
-  const checkLastFed = () => {
-    axios.get(`/pokemon/${pokemon.id}/last_fed`).then((response) => {
+  const checkLastFed = (id) => {
+    axios.get(`/pokemon/${id}/last_fed`).then((response) => {
+      if(response.data.success === false) {
+        return
+      } else {
+        success = true
+      }
       // response is time difference (in hours) since the last time pokemon was fed
       let hours_since_fed = +response.data.time_diff
       console.log(`Hours since fed last: ${hours_since_fed}`)
@@ -104,6 +126,8 @@ function Play({user, pokemon, setPokemon}) {
       }
     }
     document.getElementById('second-num').innerHTML = mysteryNum
+    document.getElementById('higherButton').disabled = true
+    document.getElementById('lowerButton').disabled = true
     axios.put(`/pokemon/${pokemon.id}/play`, {current_happiness: temp_happiness, correct: correct}).then((response) => {
       setHappinessState(response.data.happiness)
       setPokemon(response.data)
