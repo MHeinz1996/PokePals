@@ -16,7 +16,7 @@ def index(request):
   return HttpResponse(index)
 
 ########################################################################################################
-# AUTH
+# AUTH                                                                                                 #
 ########################################################################################################
   
 @api_view(['POST'])
@@ -35,9 +35,6 @@ def log_in(request):
     email = request.data['email']
     password = request.data['password']
     user = authenticate(username=email, password=password)
-    # print('user?')
-    # print(user.email)
-    # print(user.password)
     if user is not None:
       if user.is_active:
         try:
@@ -58,7 +55,6 @@ def log_in(request):
 
 @api_view(['POST'])
 def log_out(request):
-  # add code to accept game info as params, and update database with that data
   logout(request)
   return JsonResponse({'success':True})
 
@@ -74,7 +70,7 @@ def who_am_i(request):
     return JsonResponse({'user': None})
 
 ########################################################################################################
-# AJAX
+# AJAX                                                                                                 #
 ########################################################################################################
 
 @api_view(['GET'])
@@ -99,6 +95,7 @@ def pokemon_id(request, id, trainer_id):
     sprite = data['sprites']['front_default']
     
     # Calls pkmnapi using a shell command because I couldn't figure out how to do it using python requests module
+    # apikey is in plaintext for ease of grading. There is a lot of set up for this api and it'll be a lot easier for instructors if they just use my account
     os.system(f"curl -X GET -H 'Authorization: Bearer tH3x7Xmhiw7TdqI0vIRXfAiE6pXoCn8JHGssP71D0CTc0bGH66uNjUtx2iS1e6mk' -H 'Accept: audio/wav' -o {path}/media/cries/pokemon{id}.wav  https://api.pkmnapi.com/v1/pokemon/cries/{id}")
     
     try:

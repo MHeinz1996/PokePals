@@ -186,18 +186,3 @@ function Play({user, pokemon, setPokemon}) {
 }
 
 export default Play
-
-/* Notes
-Components needed:
-- Quit button -> Saves game data to database, logout user, then redirect to login page
-- Status button -> Displays Pokemon's Happiness and Hunger levels
-- Game button -> Lets user play a game with their Pokemon
-- Feed button -> Feeds pokemon and resets their `last_fed` database info, if pokemon has more than 3 stars in hunger, don't let user feed pokemon
-
-Game(play with pokemon) logic needed:
-- Game button logic
-  - Display a number from 1-9 on the screen. User can guess if the next number will be higher or lower than the first number
-  - if user gets the question correct, pokemon gains 1 point in happiness
-  - if user gets the question wrong, pokemon loses 1 point in happiness
-  - if time allows at all, maybe switch game to "Who's that pokemon?!"
- */
