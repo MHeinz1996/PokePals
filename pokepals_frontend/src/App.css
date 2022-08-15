@@ -58,7 +58,8 @@ body {
 .pokemon-species {
   font-size: 5rem;
   -webkit-text-stroke:3px #3264AF;
-  font-family: arial; color: #FFCC01;
+  font-family: arial; 
+  color: #FFCC01;
 }
 
 .game-button {

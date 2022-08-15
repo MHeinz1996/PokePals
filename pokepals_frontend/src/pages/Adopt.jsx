@@ -30,7 +30,7 @@ function Adopt({user}) {
 
   return (
     <div>
-      <h1>Adopt a Pokémon</h1>
+      <h1 className='pokemon-species'><strong>Adopt a Pokémon</strong></h1>
       <p>Looks like you haven't adopted a pokémon yet</p>
       <div id="dropdown-btn" className="dropdown">
         <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">

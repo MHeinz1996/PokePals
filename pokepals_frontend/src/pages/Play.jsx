@@ -155,9 +155,9 @@ function Play({user, pokemon, setPokemon}) {
         </div>
       </div>
       <div className="container">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center pokemon-font">
           { info &&
-            <div id='info1' className="col-sm-2">
+            <div id='info1' className="col-sm-2 info-text">
               <h6>PokéPals!</h6>
               <p>Take care of your Pokémon! If they are hungry, they will get upset. If they are very upset, they might even runaway! If you choose to, you can release your Pokémon. THIS CANNOT BE UNDONE</p>
               <Button variant='danger' onClick={() => ReleasePokemon(1)}>Release Pokémon</Button>
