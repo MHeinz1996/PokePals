@@ -49,8 +49,8 @@ function Play({user, pokemon, setPokemon}) {
         let temp_hunger = hunger
         let temp_happiness = happiness
         let count = 0
+        // subtract from stats based on how many hours pokemon wasn't fed
         for(let i=0; i<hours_since_fed; i++) {
-          // count how many hours the pokemon has been extremely unhappy
           if(temp_hunger === 0) {
             if(temp_happiness - 2 >= 0) {
               temp_happiness -= 2
