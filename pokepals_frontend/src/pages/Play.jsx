@@ -52,7 +52,7 @@ function Play({user, pokemon, setPokemon}) {
         for(let i=0; i<hours_since_fed; i++) {
           // count how many hours the pokemon has been extremely unhappy
           if(temp_hunger === 0) {
-            if(temp_happiness -= 2 >= 0) {
+            if(temp_happiness - 2 >= 0) {
               temp_happiness -= 2
             } else if(temp_happiness === 0) {
               count++ 
