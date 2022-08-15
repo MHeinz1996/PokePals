@@ -24,16 +24,10 @@ function Login({user, setUser, account, setAccount}) {
       <h3>Log In</h3>
       <br />
       <form onSubmit={handleSubmit}>
-      <label>
-          Email:
-          <input type="email" id="email" />
-        </label>
+        <input type="email" id="email" placeholder='email'/>
         <br />
         <br />
-        <label>
-          Password:
-          <input type="password" id="password" />
-        </label>
+        <input type="password" id="password" placeholder='password'/>
         <br />
         <br />
         <button type="submit">Submit</button>

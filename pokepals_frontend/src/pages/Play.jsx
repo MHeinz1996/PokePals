@@ -30,6 +30,7 @@ function Play({user, pokemon, setPokemon}) {
   
   let success = false
   useEffect(() => {
+    document.body.classList.add('pokemon-field');
     const csrftoken = getCookie('csrftoken');
     axios.defaults.headers.common['X-CSRFToken'] = csrftoken
     if(firstRender){
@@ -146,7 +147,7 @@ function Play({user, pokemon, setPokemon}) {
         <div className="row justify-content-center">
           <div className="col-sm-1"> </div>
           <div className="col-sm-10">
-            <h2>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</h2>
+            <h1 className='pokemon-species'><strong>{pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)}</strong></h1>
           </div>
           <div className="col-sm-1">
             <Button variant='light info-button' onClick={() => setInfo(!info)}>info</Button>

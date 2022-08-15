@@ -55,6 +55,21 @@ body {
   width: 20rem;
 }
 
+.pokemon-species {
+  font-size: 5rem;
+  -webkit-text-stroke:3px #3264AF;
+  font-family: arial; color: #FFCC01;
+}
+
 .game-button {
   padding-bottom: 10px;
+}
+
+
+.pokemon-field {
+  background-image: url('https://cutewallpaper.org/21/pokemon-battle-field-background/Pokemon-X-and-Y-battle-background-10-by-PhoenixOfLight92-on-.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-color: black;
 }
