@@ -62,7 +62,7 @@ body {
 .pokemon-species {
   font-size: 5rem;
   -webkit-text-stroke:3px #3264AF;
-  font-family: cursive; 
+  font-family: sans-serif; 
   color: #FFCC01;
 }
 
@@ -70,7 +70,7 @@ body {
   font-size: 1.28rem;
   font-weight: 600;
   -webkit-text-stroke:1px #3264AF;
-  font-family: 'Pokemon Solid', sans-serif;
+  font-family: sans-serif;
   color: #FFCC01;
 }
 
