@@ -24,19 +24,21 @@ function Play_w_Pokemon({setMysteryNum}) {
       document.getElementById('lowerButton').hidden = false
       document.getElementById('higherButton').disabled = false
       document.getElementById('lowerButton').disabled = false
+      document.getElementById('play-button').innerHTML = 'Dismiss'
       setHidden(!hidden)
     } else {
       document.getElementById('first-num').innerHTML = ''
       document.getElementById('second-num').innerHTML = ''
       document.getElementById('higherButton').hidden = true
       document.getElementById('lowerButton').hidden = true
+      document.getElementById('play-button').innerHTML = 'Play'
       setHidden(!hidden)
     }
   }
 
   return (
     <div>
-      <button onClick={() => NumberGame()}>Play</button>
+      <button id="play-button" onClick={() => NumberGame()}>Play</button>
     </div>
   )
 
