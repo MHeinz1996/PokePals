@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@*swka+)xan7wdoz)bfrlo7xs@17x4u7bm1$!sym#)ag6a=+ca'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://mheinzinger.com']
 
 # Application definition
 
@@ -79,8 +80,7 @@ WSGI_APPLICATION = 'pokepals_proj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'assessment_five',
-        'HOST': 'localhost'
+        'NAME': 'pokepals_db'
     }
 }
 
