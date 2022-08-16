@@ -92,7 +92,7 @@ def pokemon_id(request, id, trainer_id):
     response = requests.get(f'https://pokeapi.co/api/v2/pokemon/{id}')
     data = response.json()
     name = data['name']
-    sprite = data['sprites']['front_default']
+    sprite = data['sprites']['other']['official-artwork']['front_default']
     
     # Calls pkmnapi using a shell command because I couldn't figure out how to do it using python requests module
     # apikey is in plaintext for ease of grading. There is a lot of set up for this api and it'll be a lot easier for instructors if they just use my account
