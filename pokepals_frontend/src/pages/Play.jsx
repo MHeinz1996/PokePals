@@ -179,7 +179,7 @@ function Play({user, pokemon, setPokemon}) {
           </div>
           { info &&
             <div id='info2' className="col-sm-3 pokemon-font">
-              <p>Instructions for 'Play': A number will appear on the left of your Pokémon. You have to guess if the next number that appears on the right of your Pokémon will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
+              <p>Instructions for 'Play': A number will appear next to your Pokémon. You have to guess if the next number that appears on the right of your Pokémon will be higher or lower than the first number. Winning makes your Pokémon happy, losing makes them sad!</p>
             </div>
           }
         </div>
