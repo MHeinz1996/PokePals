@@ -23,10 +23,10 @@ function SignUp({account, setAccount}) {
       <h3 className='login-signup'>Sign Up</h3>
       <br />
       <form onSubmit={handleSubmit}>
-        <input type="email" id="email" placeholder='email'/>
+        <input type="email" id="email" placeholder='email' required/>
         <br />
         <br />
-        <input type="password" id="password" placeholder='password'/>
+        <input type="password" id="password" placeholder='password' required/>
         <br />
         <br />
         <button type="submit">Submit</button>
