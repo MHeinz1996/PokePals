@@ -98,3 +98,7 @@ body {
   font-weight: 600;
   color: floralwhite;
 }
+
+.button-padding {
+  padding-top: 30px
+}

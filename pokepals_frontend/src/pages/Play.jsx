@@ -185,7 +185,7 @@ function Play({user, pokemon, setPokemon}) {
         </div>
       </div>
       <div className="container">
-        <div className="row justify-content-center">
+        <div className="row justify-content-center button-padding">
           <div className="col-sm-2 game-button">
             <Status species={species} hunger={hungerState} happiness={happinessState}/>
           </div>
