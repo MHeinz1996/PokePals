@@ -56,7 +56,7 @@ body {
 
 #sprite {
   height: 20rem;
-  width: 20rem;
+  width: auto;
 }
 
 .pokemon-species {
